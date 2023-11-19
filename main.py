@@ -1,6 +1,8 @@
-from typing import Union
+from fastapi import FastAPI, Query
 
-from fastapi import FastAPI
+from pydantic import BaseModel
+
+from maps import maps_client, NearbyPlacesRequest
 
 app = FastAPI()
 
@@ -10,6 +12,7 @@ def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+@app.post("/nearbyPlaces")
+def get_nearby_places(req: NearbyPlacesRequest):
+    response = maps_client.getNearbyPlaces(req)
+    return {"response": response}
