@@ -12,13 +12,15 @@ if (load_dotenv() == False):
 
 API_KEY = os.environ["GOOGLE_MAPS_API_KEY"]
 
+MAX_RESULT_COUNT = 10
+
 
 class NearbyPlacesRequest(BaseModel):
     latitude: float
     longitude: float
     radius: Optional[float] = 500
     place_type: Optional[str] = "places.displayName,places.location,places.rating"
-    max_result_count: Optional[int] = 10
+    max_result_count: Optional[int] = MAX_RESULT_COUNT
 
 
 class Location(BaseModel):

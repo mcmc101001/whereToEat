@@ -1,6 +1,4 @@
-from fastapi import FastAPI, Query
-
-from pydantic import BaseModel
+from fastapi import FastAPI
 
 from maps import maps_client, NearbyPlacesRequest
 
