@@ -9,7 +9,7 @@ function showError() {
 }
 
 function setPosition(position: GeolocationPosition) {
-  router.push({ path: '/recommendation', query: { latitude: position.coords.latitude, longitude: position.coords.longitude } })
+  router.push({ name: "Recommendation", query: { latitude: position.coords.latitude, longitude: position.coords.longitude } })
   errorState.value = false
 }
 

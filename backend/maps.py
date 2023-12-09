@@ -2,7 +2,7 @@ import os
 import requests
 
 from typing import Optional, Mapping
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 
 from dotenv import load_dotenv
 
@@ -12,15 +12,21 @@ if (load_dotenv() == False):
 
 API_KEY = os.environ["GOOGLE_MAPS_API_KEY"]
 
-MAX_RESULT_COUNT = 10
+MAX_RESULT_COUNT = 20
 
 
 class NearbyPlacesRequest(BaseModel):
     latitude: float
     longitude: float
-    radius: Optional[float] = 500
-    place_type: Optional[str] = "places.displayName,places.location,places.rating"
-    max_result_count: Optional[int] = MAX_RESULT_COUNT
+    radius: float | None = 200  # meters
+    place_type: str | None = "places.displayName,places.location,places.rating"
+    max_result_count: int | None = MAX_RESULT_COUNT
+
+    @validator('max_result_count')
+    def max_result_count_must_be_between_1_and_20(cls, v):
+        if (v < 1 or v > 20):
+            raise ValueError('max_result_count must be between 1 and 20')
+        return v
 
 
 class Location(BaseModel):
