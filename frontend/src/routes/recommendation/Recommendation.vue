@@ -3,6 +3,7 @@ import Loader from '@/components/Loader.vue'
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import getNearbyPlaces, { type Place, type getNearbyPlacesBody } from '@/api/getNearbyPlaces'
+import Card from '@/components/Card.vue';
 
 const route = useRoute()
 const router = useRouter()
@@ -44,6 +45,6 @@ onMounted(async() => {
 <template>
   <Loader v-if="isLoading" />
   <template v-else>
-    <div class="text-primary">hello {{ places[0].displayName.text }}</div>
+    <div class="h-full w-full py-20 px-10 flex items-center justify-center"><Card :place=places[0] /></div>
   </template>
 </template>

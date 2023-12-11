@@ -9,6 +9,12 @@ export interface getNearbyPlacesBody {
   long: number
 }
 
+interface ImageResponse {
+  name: string
+  widthPx: number
+  heightPx: number
+}
+
 const placeSchema = z.object({
   location: z.object({
     latitude: z.number(),
@@ -18,7 +24,21 @@ const placeSchema = z.object({
   displayName: z.object({
     text: z.string(),
     languageCode: z.string()
-  })
+  }),
+  photos: z.array(
+    z.object({
+      name: z.string(),
+      widthPx: z.number(),
+      heightPx: z.number(),
+      authorAttributions: z.array(
+        z.object({
+          displayName: z.string(),
+          uri: z.string(),
+          photoUri: z.string()
+        })
+      )
+    })
+  )
 })
 
 export type Place = z.infer<typeof placeSchema>
@@ -30,6 +50,7 @@ export default async function getNearbyPlaces({ lat, long }: getNearbyPlacesBody
 
   const response = await axios.post(`${endpoint}/nearbyPlaces`, { latitude: lat, longitude: long })
   if (!isValidBody(response.data, responseSchema)) {
+    console.log(response.data)
     throw new Error('Invalid response body')
   }
   return response.data.places

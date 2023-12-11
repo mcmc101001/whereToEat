@@ -1,8 +1,9 @@
 import os
 import requests
+import shutil
 
-from typing import Optional, Mapping
-from pydantic import BaseModel, validator
+from typing import Mapping
+from pydantic import BaseModel, field_validator
 
 from dotenv import load_dotenv
 
@@ -18,11 +19,11 @@ MAX_RESULT_COUNT = 20
 class NearbyPlacesRequest(BaseModel):
     latitude: float
     longitude: float
-    radius: float | None = 200  # meters
-    place_type: str | None = "places.displayName,places.location,places.rating"
+    radius: float | None = 2000  # meters
+    place_type: str | None = "places.displayName,places.location,places.rating,places.photos"
     max_result_count: int | None = MAX_RESULT_COUNT
 
-    @validator('max_result_count')
+    @field_validator('max_result_count')
     def max_result_count_must_be_between_1_and_20(cls, v):
         if (v < 1 or v > 20):
             raise ValueError('max_result_count must be between 1 and 20')
@@ -47,7 +48,7 @@ class MapsClient:
     def getNearbyPlaces(self, req: NearbyPlacesRequest) -> list[Place]:
         headers: Mapping = {
             'Content-Type': 'application/json',
-            'X-Goog-Api-Key': API_KEY,
+            'X-Goog-Api-Key': self.api_key,
             'X-Goog-FieldMask': req.place_type,
         }
 
@@ -75,9 +76,24 @@ class MapsClient:
             raise Exception("Error getting nearby places")
         return response.json()
 
+    def getPicture(self, img_ref: str):
+        '''Returns the picture as a base64 representation'''
+        response = requests.get(
+            f"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference={img_ref}&key={self.api_key}",
+            stream=True)
+        if (response.status_code != 200):
+            print(response.json())
+            raise Exception("Error getting picture")
+        return response.raw.read()
+        # with open('dpreview.jpg', 'wb') as fout:
+        #     response.raw.decode_content = True
+        #     shutil.copyfileobj(response.raw, fout)
+
 
 maps_client = MapsClient(API_KEY)
 
 # test code
 # print(maps_client.getNearbyPlaces(NearbyPlacesRequest(
 #     latitude=37.7937, longitude=-122.3965)))
+
+# print(maps_client.getPicture("ATJ83zhSSAtkh5LTozXMhBghqubeOxnZWUV2m7Hv2tQaIzKQJgvZk9yCaEjBW0r0Zx1oJ9RF1G7oeM34sQQMOv8s2zA0sgGBiyBgvdyMxeVByRgHUXmv-rkJ2wyvNv17jyTSySm_-_6R2B0v4eKX257HOxvXlx_TSwp2NrICKrZM2d5d2P4q"))
