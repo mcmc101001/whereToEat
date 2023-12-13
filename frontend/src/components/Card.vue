@@ -11,8 +11,8 @@ const { location, rating, displayName, photos } = props.place
 
 const { text } = displayName
 const { latitude, longitude } = location
-const { name } = photos[0]
-const photoRef = name.split("/photos/")[1]
+const name = photos ? photos[0].name : null
+const photoRef = name ? name.split("/photos/")[1] : null
 
 const stars = [1, 2, 3, 4, 5] as const
 
@@ -23,6 +23,10 @@ const pictureIsLoading = ref(true)
 const url = ref("")
 
 onMounted(async() => {
+  if (!photoRef) {
+    pictureIsLoading.value = false
+    return
+  }
   const img = await getImage(photoRef)
   url.value = URL.createObjectURL(img)
   pictureIsLoading.value = false
@@ -31,10 +35,10 @@ onMounted(async() => {
 </script>
 
 <template>
-  <div class="bg-primary text-primary-foreground p-4 rounded-xl flex flex-col" >
+  <div class="bg-primary w-full text-primary-foreground p-4 rounded-xl flex flex-col" >
     <font-awesome-icon v-if="pictureIsLoading" class="text-5xl" icon="fa-solid fa-spinner" spin-pulse />
-    <img v-else class="rounded-2xl" :src="url">
-    <div class="font-semibold text-2xl flex items-center justify-center mt-2">{{ displayName.text }}</div>
+    <img v-else class="rounded-2xl max-h-full" :src="photos ? url : 'fallback.jpg'">
+    <div class="font-semibold text-2xl flex items-center justify-center mt-2 text-center">{{ displayName.text }}</div>
     <div class="mt-4 flex flex-row items-center justify-center gap-x-px">
       <div v-for="star in stars" :key="star" class="text-2xl">
         <font-awesome-icon v-if="star <= ratingNumber" icon="fa-solid fa-star" class="text-primary-foregound outline-primary-foreground" />

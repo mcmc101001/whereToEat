@@ -8,6 +8,8 @@ import Card from '@/components/Card.vue';
 const route = useRoute()
 const router = useRouter()
 
+const MAX_LOCATION_NUMBER = 20
+
 const getLocation = () => {
   const lat = route.query.latitude
   const long = route.query.longitude
@@ -26,6 +28,7 @@ if (Number.isNaN(latNumber) || Number.isNaN(longNumber)) {
 }
 
 let places: Place[] = []
+const placeIndex = ref(0)
 
 onMounted(async() => {
   try {
@@ -40,11 +43,24 @@ onMounted(async() => {
   }
   isLoading.value = false
 })
+
+function nextPlace() {
+  const newPlaceValue = placeIndex.value + 1
+  placeIndex.value = newPlaceValue >= MAX_LOCATION_NUMBER ? 0 : newPlaceValue
+}
+
 </script>
 
 <template>
   <Loader v-if="isLoading" />
   <template v-else>
-    <div class="h-full w-full py-20 px-10 flex items-center justify-center"><Card :place=places[0] /></div>
+    <div class="h-full w-full py-20 px-10 flex items-center justify-center flex-col gap-4">
+      <div class="flex items-center justify-center flex-1">
+        <Card :place="places[placeIndex]" :key="placeIndex" />  
+      </div>    
+      <button @click="nextPlace" class="p-3 flex text-2xl w-full items-center justify-center bg-primary rounded-full">
+        Next >
+      </button>
+    </div>
   </template>
 </template>

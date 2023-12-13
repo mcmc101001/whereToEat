@@ -57,6 +57,7 @@ class MapsClient:
                 'restaurant',
             ],
             'maxResultCount': req.max_result_count,
+            # 'rankPreference': "DISTANCE",
             'locationRestriction': {
                 'circle': {
                     'center': {

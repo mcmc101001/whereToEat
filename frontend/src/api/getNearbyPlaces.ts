@@ -25,20 +25,22 @@ const placeSchema = z.object({
     text: z.string(),
     languageCode: z.string()
   }),
-  photos: z.array(
-    z.object({
-      name: z.string(),
-      widthPx: z.number(),
-      heightPx: z.number(),
-      authorAttributions: z.array(
-        z.object({
-          displayName: z.string(),
-          uri: z.string(),
-          photoUri: z.string()
-        })
-      )
-    })
-  )
+  photos: z
+    .array(
+      z.object({
+        name: z.string(),
+        widthPx: z.number(),
+        heightPx: z.number(),
+        authorAttributions: z.array(
+          z.object({
+            displayName: z.string(),
+            uri: z.string(),
+            photoUri: z.string()
+          })
+        )
+      })
+    )
+    .optional()
 })
 
 export type Place = z.infer<typeof placeSchema>
