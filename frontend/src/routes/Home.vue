@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import router from '@/router'
+import FilterSection from '@/components/FilterSection.vue';
 
 const errorState = ref(false)
 
@@ -23,8 +24,11 @@ function getLocation() {
 </script>
 
 <template>
-  <button class="h-12 p-2 rounded-lg bg-primary text-primary-foreground" @click="getLocation">
-    Get location
-  </button>
-  <p v-if="errorState">Error getting location! Please enable location permissions and try again!</p>
+  <div class="h-full w-full flex p-8 flex-col items-center justify-center gap-4">
+    <FilterSection />
+    <button class="h-48 w-48 font-semibold p-6 rounded-full text-4xl bg-primary text-primary-foreground" @click="getLocation">
+      Find food!
+    </button>
+    <p class="text-center" v-if="errorState">Error getting location! Please enable location permissions and try again!</p>
+  </div>
 </template>

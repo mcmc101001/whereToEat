@@ -9,12 +9,6 @@ export interface getNearbyPlacesBody {
   long: number
 }
 
-interface ImageResponse {
-  name: string
-  widthPx: number
-  heightPx: number
-}
-
 const placeSchema = z.object({
   location: z.object({
     latitude: z.number(),

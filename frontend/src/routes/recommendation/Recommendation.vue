@@ -54,7 +54,7 @@ function nextPlace() {
 <template>
   <Loader v-if="isLoading" />
   <template v-else>
-    <div class="h-full w-full py-20 px-10 flex items-center justify-center flex-col gap-4">
+    <div class="h-full w-full py-10 px-10 flex items-center justify-center flex-col gap-4">
       <div class="flex items-center justify-center flex-1">
         <Card :place="places[placeIndex]" :key="placeIndex" />  
       </div>    
