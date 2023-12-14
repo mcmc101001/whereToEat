@@ -24,9 +24,9 @@ function getLocation() {
 </script>
 
 <template>
-  <div class="h-full w-full flex p-8 flex-col items-center justify-center gap-4">
+  <div class="h-full w-full flex p-8 flex-col items-center justify-center">
     <FilterSection />
-    <button class="h-48 w-48 font-semibold p-6 rounded-full text-4xl bg-primary text-primary-foreground" @click="getLocation">
+    <button class="h-48 mt-8 w-48 font-semibold p-6 rounded-full text-4xl bg-primary text-primary-foreground" @click="getLocation">
       Find food!
     </button>
     <p class="text-center" v-if="errorState">Error getting location! Please enable location permissions and try again!</p>

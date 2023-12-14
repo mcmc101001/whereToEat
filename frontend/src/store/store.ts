@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import type { Ref } from 'vue'
+import { ref, computed } from 'vue'
 
 export type FilterItem = {
   displayName: string
@@ -32,5 +31,13 @@ export const useStore = defineStore('search-filters', () => {
     })
   }
 
-  return { filterItems, toggleFilter, resetFilters }
+  const allSelected = computed(() => {
+    return filterItems.value.every((item) => item.selected)
+  })
+
+  const noneSelected = computed(() => {
+    return filterItems.value.every((item) => !item.selected)
+  })
+
+  return { filterItems, toggleFilter, resetFilters, allSelected, noneSelected }
 })

@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { type FilterItem, useStore } from '@/store/store';
+import { useStore } from '@/store/store';
 import Filter from '@/components/Filter.vue';
+import { storeToRefs } from 'pinia';
 
-const { filterItems, resetFilters } = useStore();
+const { resetFilters } = useStore();
+const { filterItems, noneSelected } = storeToRefs(useStore());
 
 </script>
 
 <template>
-  <Button class="w-full bg-secondary text-lg px-3 py-2 rounded-xl" @click="resetFilters">Select All</Button>
-  <div class="grid grid-cols-2 gap-2 w-full">
+  <button class="w-full bg-secondary text-lg px-3 py-2 rounded-xl" @click="resetFilters">Select All</button>
+  <div class="grid grid-cols-2 mt-2 gap-2 w-full">
     <Filter v-for="filter in filterItems" :filter="filter" :key="filter.displayName" />
   </div>
+  <div v-if="noneSelected" class="mt-2 text-center">Note: No filters selected means general places will be searched</div>
 </template>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { type FilterItem, useStore } from '@/store/store';
 
-
 const { toggleFilter } = useStore();
 
 defineProps<{

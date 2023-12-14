@@ -22,7 +22,7 @@ class NearbyPlacesRequest(BaseModel):
     radius: float | None = 2000  # meters
     place_type: str | None = "places.displayName,places.location,places.rating,places.photos"
     max_result_count: int | None = MAX_RESULT_COUNT
-    types: list[str] | None = ['restaurant']
+    filters: list[str] | None = ['restaurant']
 
     @field_validator('max_result_count')
     def max_result_count_must_be_between_1_and_20(cls, v):
@@ -55,7 +55,7 @@ class MapsClient:
         }
 
         json_data = {
-            'includedTypes': req.types,
+            'includedTypes': req.filters,
             'maxResultCount': req.max_result_count,
             # 'rankPreference': "DISTANCE",
             'locationRestriction': {

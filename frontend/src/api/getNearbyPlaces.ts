@@ -7,6 +7,7 @@ const endpoint = import.meta.env.VITE_API_URL
 export interface getNearbyPlacesBody {
   lat: number
   long: number
+  filters: string[]
 }
 
 const placeSchema = z.object({
@@ -39,12 +40,19 @@ const placeSchema = z.object({
 
 export type Place = z.infer<typeof placeSchema>
 
-export default async function getNearbyPlaces({ lat, long }: getNearbyPlacesBody) {
+export default async function getNearbyPlaces({ lat, long, filters }: getNearbyPlacesBody) {
   const responseSchema = z.object({
     places: z.array(placeSchema)
   })
 
-  const response = await axios.post(`${endpoint}/nearbyPlaces`, { latitude: lat, longitude: long })
+  const response = await axios.post(`${endpoint}/nearbyPlaces`, {
+    latitude: lat,
+    longitude: long,
+    filters: filters
+  })
+  if (response.status == 200 && JSON.stringify(response.data) === '{}') {
+    return []
+  }
   if (!isValidBody(response.data, responseSchema)) {
     console.log(response.data)
     throw new Error('Invalid response body')
