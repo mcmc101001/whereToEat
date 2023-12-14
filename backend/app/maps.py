@@ -1,6 +1,5 @@
 import os
 import requests
-import shutil
 
 from typing import Mapping
 from pydantic import BaseModel, field_validator

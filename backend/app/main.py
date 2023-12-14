@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 
-from maps import maps_client, NearbyPlacesRequest
+from app.maps import maps_client, NearbyPlacesRequest
 
 app = FastAPI()
 

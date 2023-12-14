@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import router from '@/router'
-import FilterSection from '@/components/FilterSection.vue';
-import RadiusSection from '@/components/RadiusSection.vue';
+import FilterSection from '@/components/FilterSection.vue'
+import RadiusSection from '@/components/RadiusSection.vue'
 
 const errorState = ref(false)
 
@@ -11,7 +11,10 @@ function showError() {
 }
 
 function setPosition(position: GeolocationPosition) {
-  router.push({ name: "Recommendation", query: { latitude: position.coords.latitude, longitude: position.coords.longitude } })
+  router.push({
+    name: 'Recommendation',
+    query: { latitude: position.coords.latitude, longitude: position.coords.longitude }
+  })
   errorState.value = false
 }
 
@@ -28,9 +31,14 @@ function getLocation() {
   <div class="h-full w-full flex p-8 flex-col items-center justify-center gap-4">
     <RadiusSection />
     <FilterSection />
-    <button class="h-48 mt-8 w-48 font-semibold p-6 rounded-full text-4xl bg-primary text-primary-foreground" @click="getLocation">
+    <button
+      class="h-48 mt-8 w-48 font-semibold p-6 rounded-full text-4xl bg-primary text-primary-foreground"
+      @click="getLocation"
+    >
       Find food!
     </button>
-    <p class="text-center" v-if="errorState">Error getting location! Please enable location permissions and try again!</p>
+    <p class="text-center" v-if="errorState">
+      Error getting location! Please enable location permissions and try again!
+    </p>
   </div>
 </template>

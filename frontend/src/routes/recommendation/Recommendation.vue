@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import Loader from '@/components/Loader.vue'
 import { onMounted, ref } from 'vue'
-import { useRoute, useRouter } from "vue-router";
+import { useRoute, useRouter } from 'vue-router'
 import getNearbyPlaces, { type Place, type getNearbyPlacesBody } from '@/api/getNearbyPlaces'
-import Card from '@/components/Card.vue';
-import { useFilterStore } from '@/store/filterStore';
+import Card from '@/components/Card.vue'
+import { useFilterStore } from '@/store/filterStore'
 import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { useRadiusStore } from '@/store/radiusStore';
+import { useRadiusStore } from '@/store/radiusStore'
 
 const route = useRoute()
 const router = useRouter()
@@ -35,12 +35,14 @@ const { filterItems } = storeToRefs(useFilterStore())
 const { allSelected } = useFilterStore()
 const { selectedRadius } = useRadiusStore()
 
-const filters = allSelected ? ['restaurant'] : filterItems.value.filter((item) => item.selected).map((filterItem) => filterItem.apiName)
+const filters = allSelected
+  ? ['restaurant']
+  : filterItems.value.filter((item) => item.selected).map((filterItem) => filterItem.apiName)
 
 let places: Place[] = []
 const placeIndex = ref(0)
 
-onMounted(async() => {
+onMounted(async () => {
   try {
     const body: getNearbyPlacesBody = {
       lat: latNumber,
@@ -48,7 +50,7 @@ onMounted(async() => {
       filters: filters,
       radius: selectedRadius
     }
-    places = await getNearbyPlaces(body)   
+    places = await getNearbyPlaces(body)
 
     MAX_LOCATION_NUMBER = places.length
   } catch (e) {
@@ -74,32 +76,48 @@ function prevPlace() {
     placeIndex.value = newPlaceValue
   }
 }
-
 </script>
 
 <template>
   <Loader v-if="isLoading" />
   <template v-else>
-    <router-link :to="{ name: 'Home'}"><font-awesome-icon class="absolute top-5 left-5 w-6 h-6 opacity-50" icon="fa-solid fa-xmark" /></router-link>
+    <router-link :to="{ name: 'Home' }"
+      ><font-awesome-icon class="absolute top-5 left-5 w-6 h-6 opacity-50" icon="fa-solid fa-xmark"
+    /></router-link>
     <div class="h-full w-full py-10 px-10 flex items-center justify-center flex-col gap-4">
       <div class="flex items-center justify-center flex-1">
-        <div v-if="placeIndex === MAX_LOCATION_NUMBER" class="text-primary flex flex-col gap-4 text-2xl p-6 h-full w-full items-center justify-center text-center">
-          <span v-if="MAX_LOCATION_NUMBER === 20">Max locations reached! Try refining your filters!</span>
+        <div
+          v-if="placeIndex === MAX_LOCATION_NUMBER"
+          class="text-primary flex flex-col gap-4 text-2xl p-6 h-full w-full items-center justify-center text-center"
+        >
+          <span v-if="MAX_LOCATION_NUMBER === 20"
+            >Max locations reached! Try refining your filters!</span
+          >
           <span v-else>No more locations found! Try modifying your filters!</span>
-          <router-link to="/" class="bg-primary rounded-full p-5 text-primary-foreground">Go back</router-link>
+          <router-link to="/" class="bg-primary rounded-full p-5 text-primary-foreground"
+            >Go back</router-link
+          >
         </div>
-        <Card v-else :place="places[placeIndex]" :key="placeIndex" />  
+        <Card v-else :place="places[placeIndex]" :key="placeIndex" />
       </div>
-      <div class="flex items-center justify-center w-full gap-3">  
-        <button :disabled="placeIndex == 0" @click="prevPlace" class="p-3 flex-1 flex text-xl items-center justify-center bg-primary rounded-full" 
-        :class="placeIndex == 0 && 'opacity-50'">
+      <div class="flex items-center justify-center w-full gap-3">
+        <button
+          :disabled="placeIndex == 0"
+          @click="prevPlace"
+          class="p-3 flex-1 flex text-xl items-center justify-center bg-primary rounded-full"
+          :class="placeIndex == 0 && 'opacity-50'"
+        >
           &lt; Previous
         </button>
-        <button :disabled="placeIndex == MAX_LOCATION_NUMBER" @click="nextPlace" class="p-3 flex-1 flex text-xl items-center justify-center bg-primary 
-        rounded-full" :class="placeIndex == MAX_LOCATION_NUMBER && 'opacity-50'">
+        <button
+          :disabled="placeIndex == MAX_LOCATION_NUMBER"
+          @click="nextPlace"
+          class="p-3 flex-1 flex text-xl items-center justify-center bg-primary rounded-full"
+          :class="placeIndex == MAX_LOCATION_NUMBER && 'opacity-50'"
+        >
           Next &gt;
         </button>
-      </div> 
+      </div>
     </div>
   </template>
 </template>
