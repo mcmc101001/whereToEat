@@ -8,6 +8,7 @@ export interface getNearbyPlacesBody {
   lat: number
   long: number
   filters: string[]
+  radius: number
 }
 
 const placeSchema = z.object({
@@ -40,7 +41,7 @@ const placeSchema = z.object({
 
 export type Place = z.infer<typeof placeSchema>
 
-export default async function getNearbyPlaces({ lat, long, filters }: getNearbyPlacesBody) {
+export default async function getNearbyPlaces({ lat, long, filters, radius }: getNearbyPlacesBody) {
   const responseSchema = z.object({
     places: z.array(placeSchema)
   })
@@ -48,7 +49,8 @@ export default async function getNearbyPlaces({ lat, long, filters }: getNearbyP
   const response = await axios.post(`${endpoint}/nearbyPlaces`, {
     latitude: lat,
     longitude: long,
-    filters: filters
+    filters: filters,
+    radius: radius
   })
   if (response.status == 200 && JSON.stringify(response.data) === '{}') {
     return []

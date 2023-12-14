@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { computed } from 'vue'
 import { ref } from 'vue'
 import { type Ref } from 'vue'
 
@@ -25,5 +26,9 @@ export const useRadiusStore = defineStore('search-radius', () => {
     })
   }
 
-  return { radiusItems, setRadius }
+  const selectedRadius = computed(() => {
+    return radiusItems.value.filter((item) => item.selected)[0].apiValue
+  })
+
+  return { radiusItems, setRadius, selectedRadius }
 })

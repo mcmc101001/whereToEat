@@ -7,6 +7,7 @@ import Card from '@/components/Card.vue';
 import { useFilterStore } from '@/store/filterStore';
 import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
+import { useRadiusStore } from '@/store/radiusStore';
 
 const route = useRoute()
 const router = useRouter()
@@ -32,6 +33,7 @@ if (Number.isNaN(latNumber) || Number.isNaN(longNumber)) {
 
 const { filterItems } = storeToRefs(useFilterStore())
 const { allSelected } = useFilterStore()
+const { selectedRadius } = useRadiusStore()
 
 const filters = allSelected ? ['restaurant'] : filterItems.value.filter((item) => item.selected).map((filterItem) => filterItem.apiName)
 
@@ -44,6 +46,7 @@ onMounted(async() => {
       lat: latNumber,
       long: longNumber,
       filters: filters,
+      radius: selectedRadius
     }
     places = await getNearbyPlaces(body)   
 
@@ -81,7 +84,8 @@ function prevPlace() {
     <div class="h-full w-full py-10 px-10 flex items-center justify-center flex-col gap-4">
       <div class="flex items-center justify-center flex-1">
         <div v-if="placeIndex === MAX_LOCATION_NUMBER" class="text-primary flex flex-col gap-4 text-2xl p-6 h-full w-full items-center justify-center text-center">
-          <span>No more locations found! Try changing your filters!</span>
+          <span v-if="MAX_LOCATION_NUMBER === 20">Max locations reached! Try refining your filters!</span>
+          <span v-else>No more locations found! Try modifying your filters!</span>
           <router-link to="/" class="bg-primary rounded-full p-5 text-primary-foreground">Go back</router-link>
         </div>
         <Card v-else :place="places[placeIndex]" :key="placeIndex" />  

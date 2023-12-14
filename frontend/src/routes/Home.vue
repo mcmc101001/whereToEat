@@ -25,7 +25,7 @@ function getLocation() {
 </script>
 
 <template>
-  <div class="h-full w-full flex p-8 flex-col items-center justify-center gap-2">
+  <div class="h-full w-full flex p-8 flex-col items-center justify-center gap-4">
     <RadiusSection />
     <FilterSection />
     <button class="h-48 mt-8 w-48 font-semibold p-6 rounded-full text-4xl bg-primary text-primary-foreground" @click="getLocation">
