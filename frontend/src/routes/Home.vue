@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import router from '@/router'
 import FilterSection from '@/components/FilterSection.vue';
+import RadiusSection from '@/components/RadiusSection.vue';
 
 const errorState = ref(false)
 
@@ -24,7 +25,8 @@ function getLocation() {
 </script>
 
 <template>
-  <div class="h-full w-full flex p-8 flex-col items-center justify-center">
+  <div class="h-full w-full flex p-8 flex-col items-center justify-center gap-2">
+    <RadiusSection />
     <FilterSection />
     <button class="h-48 mt-8 w-48 font-semibold p-6 rounded-full text-4xl bg-primary text-primary-foreground" @click="getLocation">
       Find food!

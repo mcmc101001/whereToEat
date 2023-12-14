@@ -7,7 +7,7 @@ export type FilterItem = {
   apiName: string
 }
 
-export const useStore = defineStore('search-filters', () => {
+export const useFilterStore = defineStore('search-filters', () => {
   const filterItems = ref([
     { displayName: 'Bakery', selected: true, apiName: 'bakery' },
     { displayName: 'Chinese', selected: true, apiName: 'chinese_restaurant' },

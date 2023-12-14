@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import getNearbyPlaces, { type Place, type getNearbyPlacesBody } from '@/api/getNearbyPlaces'
 import Card from '@/components/Card.vue';
-import { useStore } from '@/store/store';
+import { useFilterStore } from '@/store/filterStore';
 import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
 
@@ -30,11 +30,10 @@ if (Number.isNaN(latNumber) || Number.isNaN(longNumber)) {
   router.push({ name: 'Home' })
 }
 
-const { filterItems } = storeToRefs(useStore())
-const { allSelected } = useStore()
+const { filterItems } = storeToRefs(useFilterStore())
+const { allSelected } = useFilterStore()
 
 const filters = allSelected ? ['restaurant'] : filterItems.value.filter((item) => item.selected).map((filterItem) => filterItem.apiName)
-console.log(filters)
 
 let places: Place[] = []
 const placeIndex = ref(0)
@@ -88,10 +87,12 @@ function prevPlace() {
         <Card v-else :place="places[placeIndex]" :key="placeIndex" />  
       </div>
       <div class="flex items-center justify-center w-full gap-3">  
-        <button :disabled="placeIndex == 0" @click="prevPlace" class="p-3 flex-1 flex text-xl items-center justify-center bg-primary rounded-full" :class="placeIndex == 0 && 'opacity-50'">
+        <button :disabled="placeIndex == 0" @click="prevPlace" class="p-3 flex-1 flex text-xl items-center justify-center bg-primary rounded-full" 
+        :class="placeIndex == 0 && 'opacity-50'">
           &lt; Previous
         </button>
-        <button :disabled="placeIndex == MAX_LOCATION_NUMBER" @click="nextPlace" class="p-3 flex-1 flex text-xl items-center justify-center bg-primary rounded-full" :class="placeIndex == MAX_LOCATION_NUMBER && 'opacity-50'">
+        <button :disabled="placeIndex == MAX_LOCATION_NUMBER" @click="nextPlace" class="p-3 flex-1 flex text-xl items-center justify-center bg-primary 
+        rounded-full" :class="placeIndex == MAX_LOCATION_NUMBER && 'opacity-50'">
           Next &gt;
         </button>
       </div> 
