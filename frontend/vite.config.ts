@@ -20,7 +20,7 @@ export default defineConfig({
         name: 'WhereToEat',
         short_name: 'WhereToEat',
         description: 'Find a place near you to eat!',
-        theme_color: '#ffffff',
+        theme_color: '#000000',
         icons: [
           {
             src: 'android-launchericon-192-192.png',

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10.12) (preloaded format=pdflatex 2023.11.19)  18 DEC 2023 22:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10.12) (preloaded format=pdflatex 2023.11.19)  18 DEC 2023 22:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -55,13 +55,13 @@ L3 programming layer <2023-11-09>
 Here is how much of TeX's memory you used:
  436 strings out of 474587
  8549 string characters out of 5745693
- 1926558 words of memory out of 5000000
+ 1927558 words of memory out of 5000000
  22699 multiletter control sequences out of 15000+600000
  559279 words of font info for 40 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  35i,5n,50p,362b,109s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/tohmi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/tohmi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on doc.pdf (1 page, 35222 bytes).
+Output written on doc.pdf (1 page, 35684 bytes).
 PDF statistics:
  16 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

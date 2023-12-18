@@ -9,7 +9,7 @@ I decided to use LaTeX instead of markdown to generate the documentation to brus
 For the backend, I used FastAPI as the main framework, with Pydantic as the data validation library.
 
 \subsection{Frontend}
-For the frontend, I used Vue.js as the main framework, with TailwindCSS for styling.
+For the frontend, I used Vue.js as the main framework, with TailwindCSS for styling. Pinia was used for state management, with local storage for persistence. I also made the application into a Progressive Web App (PWA) using a Vite plugin.
 
 \section{Deployment}
 I used Docker to containerize the FastAPI backend, and deployed it on DigitalOcean. I spent lots of time trying to troubleshoot the deployment before realising a simple mistake: DigitalOcean required the port to be 8080.
