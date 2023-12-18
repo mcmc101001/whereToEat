@@ -89,10 +89,10 @@ function prevPlace() {
     <div class="h-full w-full py-10 px-10 flex items-center justify-center flex-col gap-4">
       <div class="flex items-center justify-center flex-1">
         <div
-          v-if="placeIndex === MAX_LOCATION_NUMBER || errorState === true"
+          v-if="placeIndex === MAX_LOCATION_NUMBER || errorState"
           class="text-primary flex flex-col gap-4 text-2xl p-6 h-full w-full items-center justify-center text-center"
         >
-          <span v-if="errorState === true">
+          <span v-if="errorState">
             Something went wrong! Please try again later.
           </span>
           <span v-else-if="MAX_LOCATION_NUMBER === 20"
@@ -107,7 +107,7 @@ function prevPlace() {
       </div>
       <div class="flex items-center justify-center w-full gap-3">
         <button
-          :disabled="placeIndex == 0"
+          :disabled="placeIndex == 0 || errorState"
           @click="prevPlace"
           class="p-3 flex-1 flex text-xl items-center justify-center bg-primary rounded-full"
           :class="placeIndex == 0 && 'opacity-50'"
@@ -115,7 +115,7 @@ function prevPlace() {
           &lt; Previous
         </button>
         <button
-          :disabled="placeIndex == MAX_LOCATION_NUMBER"
+          :disabled="placeIndex == MAX_LOCATION_NUMBER || errorState"
           @click="nextPlace"
           class="p-3 flex-1 flex text-xl items-center justify-center bg-primary rounded-full"
           :class="placeIndex == MAX_LOCATION_NUMBER && 'opacity-50'"
