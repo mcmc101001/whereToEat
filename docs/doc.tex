@@ -8,8 +8,11 @@ I decided to use LaTeX instead of markdown to generate the documentation to brus
 \subsection{Backend}
 For the backend, I used FastAPI as the main framework, with Pydantic as the data validation library.
 
-\section{Frontend}
+\subsection{Frontend}
 For the frontend, I used Vue.js as the main framework, with TailwindCSS for styling.
+
+\section{Deployment}
+I used Docker to containerize the FastAPI backend, and deployed it on DigitalOcean. I spent lots of time trying to troubleshoot the deployment before realising a simple mistake: DigitalOcean required the port to be 8080.
 
 \end{document}
 
