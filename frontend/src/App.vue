@@ -2,7 +2,7 @@
 
 <template>
   <main
-    class="h-[100svh] overflow-hidden min-h-screen w-full bg-background text-foreground items-center justify-center flex flex-col"
+    class="h-[100dvh] overflow-hidden min-h-screen w-full bg-background text-foreground items-center justify-center flex flex-col"
   >
     <div class="max-w-md w-full items-center flex flex-col h-full relative">
       <router-view />
