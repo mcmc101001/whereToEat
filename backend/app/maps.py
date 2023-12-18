@@ -7,10 +7,13 @@ from pydantic import BaseModel, field_validator
 from dotenv import load_dotenv
 
 if (load_dotenv() == False):
-    print("Error loading .env file")
-    raise Exception("Error loading .env file")
+    print(".env file not found")
 
-API_KEY = os.environ["GOOGLE_MAPS_API_KEY"]
+API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
+
+if (API_KEY == None):
+    print("Error finding API key")
+    raise Exception("Error finding API key")
 
 MAX_RESULT_COUNT = 20
 
