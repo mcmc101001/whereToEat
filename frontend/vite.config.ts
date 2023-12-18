@@ -18,9 +18,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       manifest: {
         name: 'WhereToEat',
-        short_name: 'EatWhere?',
+        short_name: 'WhereToEat',
         description: 'Find a place near you to eat!',
-        theme_color: '#ae91a9',
+        theme_color: '#ffffff',
         icons: [
           {
             src: 'android-launchericon-192-192.png',
