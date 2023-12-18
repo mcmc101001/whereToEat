@@ -19,7 +19,7 @@ const placeSchema = z.object({
   rating: z.number().optional(),
   displayName: z.object({
     text: z.string(),
-    languageCode: z.string()
+    languageCode: z.string().optional()
   }),
   photos: z
     .array(
@@ -28,11 +28,13 @@ const placeSchema = z.object({
         widthPx: z.number(),
         heightPx: z.number(),
         authorAttributions: z.array(
-          z.object({
-            displayName: z.string(),
-            uri: z.string(),
-            photoUri: z.string()
-          })
+          z
+            .object({
+              displayName: z.string().optional(),
+              uri: z.string().optional(),
+              photoUri: z.string().optional()
+            })
+            .optional()
         )
       })
     )

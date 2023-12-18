@@ -21,6 +21,7 @@ const getLocation = () => {
 }
 
 const isLoading = ref(true)
+const errorState = ref(false)
 
 const { lat, long } = getLocation()
 
@@ -52,10 +53,11 @@ onMounted(async () => {
     }
     places = await getNearbyPlaces(body)
 
+    errorState.value = false
+
     MAX_LOCATION_NUMBER = places.length
   } catch (e) {
-    console.error(e)
-    router.push({ name: 'Home' })
+    errorState.value = true
   }
   isLoading.value = false
 })
@@ -87,10 +89,13 @@ function prevPlace() {
     <div class="h-full w-full py-10 px-10 flex items-center justify-center flex-col gap-4">
       <div class="flex items-center justify-center flex-1">
         <div
-          v-if="placeIndex === MAX_LOCATION_NUMBER"
+          v-if="placeIndex === MAX_LOCATION_NUMBER || errorState === true"
           class="text-primary flex flex-col gap-4 text-2xl p-6 h-full w-full items-center justify-center text-center"
         >
-          <span v-if="MAX_LOCATION_NUMBER === 20"
+          <span v-if="errorState === true">
+            Something went wrong! Please try again later.
+          </span>
+          <span v-else-if="MAX_LOCATION_NUMBER === 20"
             >Max locations reached! Try refining your filters!</span
           >
           <span v-else>No more locations found! Try modifying your filters!</span>
