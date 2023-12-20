@@ -87,25 +87,32 @@ function prevPlace() {
       ><font-awesome-icon class="absolute top-5 left-5 w-6 h-6 opacity-50" icon="fa-solid fa-xmark"
     /></router-link>
     <div class="h-full w-full py-10 px-10 flex items-center justify-center flex-col gap-4">
-      <div class="flex items-center justify-center flex-1">
-        <KeepAlive :max="MAX_LOCATION_NUMBER">
-          <div
-            v-if="placeIndex === MAX_LOCATION_NUMBER || errorState"
-            class="text-primary flex flex-col gap-4 text-2xl p-6 h-full w-full items-center justify-center text-center"
-          >
-            <span v-if="errorState">
-              Something went wrong! Please try again later.
-            </span>
-            <span v-else-if="MAX_LOCATION_NUMBER === 20"
-              >Max locations reached! Try refining your filters!</span
+      <div class="flex items-center justify-center flex-1 relative">
+        <Transition
+          mode="out-in"
+          enter-from-class="opacity-50"
+          leave-from-class="opacity-100"
+          leave-to-class="opacity-50"
+          enter-active-class="transition duration-150"
+          leave-active-class="transition duration-150"
+        >
+          <KeepAlive :max="MAX_LOCATION_NUMBER">
+            <div
+              v-if="placeIndex === MAX_LOCATION_NUMBER || errorState"
+              class="text-primary flex flex-col gap-4 text-2xl p-6 h-full w-full items-center justify-center text-center"
             >
-            <span v-else>No more locations found! Try modifying your filters!</span>
-            <router-link to="/" class="bg-primary rounded-full p-5 text-primary-foreground"
-              >Go back</router-link
-            >
-          </div>
-          <Card v-else :place="places[placeIndex]" :key="placeIndex" />
-        </KeepAlive>
+              <span v-if="errorState"> Something went wrong! Please try again later. </span>
+              <span v-else-if="MAX_LOCATION_NUMBER === 20"
+                >Max locations reached! Try refining your filters!</span
+              >
+              <span v-else>No more locations found! Try modifying your filters!</span>
+              <router-link to="/" class="bg-primary rounded-full p-5 text-primary-foreground"
+                >Go back</router-link
+              >
+            </div>
+            <Card v-else :place="places[placeIndex]" :key="placeIndex" />
+          </KeepAlive>
+        </Transition>
       </div>
       <div class="flex items-center justify-center w-full gap-3">
         <button
