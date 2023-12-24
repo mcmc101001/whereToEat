@@ -64,12 +64,12 @@ export default async function getNearbyPlaces({ lat, long, filters, radius }: ge
       throw new Error('Invalid response status')
     })
 
+  if (response.status == 200 && JSON.stringify(response.data) === '{}') {
+    return []
+  }
   if (!isValidBody(response.data, responseSchema)) {
     console.log(response.data)
     throw new Error('Invalid response body')
-  }
-  if (response.status == 200 && JSON.stringify(response.data) === '{}') {
-    return []
   }
   return response.data.places
 }
