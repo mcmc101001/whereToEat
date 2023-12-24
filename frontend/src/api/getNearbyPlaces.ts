@@ -12,6 +12,7 @@ export interface getNearbyPlacesBody {
 }
 
 const placeSchema = z.object({
+  id: z.string(),
   location: z.object({
     latitude: z.number(),
     longitude: z.number()

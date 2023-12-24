@@ -24,7 +24,7 @@ class NearbyPlacesRequest(BaseModel):
     latitude: float
     longitude: float
     radius: float | None = 2000  # meters
-    place_type: str | None = "places.displayName,places.location,places.rating,places.photos"
+    place_type: str | None = "places.id,places.displayName,places.location,places.rating,places.photos"
     max_result_count: int | None = MAX_RESULT_COUNT
     filters: list[str] | None = ['restaurant']
 

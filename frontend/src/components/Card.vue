@@ -2,6 +2,7 @@
 import { getImage } from '@/api/getImage'
 import type { Place } from '@/api/getNearbyPlaces'
 import { ref, onMounted } from 'vue'
+import { haversineDistance } from '@/lib/utils'
 
 const props = defineProps<{
   currentLat: number
@@ -9,10 +10,12 @@ const props = defineProps<{
   place: Place
 }>()
 
-const { location, rating, displayName, photos } = props.place
+const { id, location, rating, displayName, photos } = props.place
 
-const { text } = displayName
 const { latitude, longitude } = location
+
+const distance = haversineDistance(latitude, props.currentLat, longitude, props.currentLong)
+
 const name = photos ? photos[0].name : null
 const photoRef = name ? name.split('/photos/')[1] : null
 
@@ -37,6 +40,20 @@ onMounted(async () => {
 
 <template>
   <div class="bg-primary w-full text-primary-foreground p-4 rounded-[2rem] flex flex-col">
+    <div class="flex justify-between mb-2 items-center">
+      <div>
+        <font-awesome-icon class="mr-[6px]" icon="fa-solid fa-location-crosshairs" />
+        <span>{{ distance.toFixed(2) }} km</span>
+      </div>
+      <a
+        target="_blank"
+        :href="`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&query_place_id=${id}`"
+      >
+        <button class="text-sm rounded-full bg-secondary px-3 py-1">
+          GMaps
+          <font-awesome-icon icon="fa-solid fa-arrow-up-right-from-square" /></button
+      ></a>
+    </div>
     <font-awesome-icon
       v-if="pictureIsLoading"
       class="text-5xl"
