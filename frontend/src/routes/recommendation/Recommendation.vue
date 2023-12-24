@@ -22,6 +22,7 @@ const getLocation = () => {
 
 const isLoading = ref(true)
 const errorState = ref(false)
+const errorMessage = ref('')
 
 const { lat, long } = getLocation()
 
@@ -58,6 +59,9 @@ onMounted(async () => {
     MAX_LOCATION_NUMBER = places.length
   } catch (e) {
     errorState.value = true
+    if (e instanceof Error) {
+      errorMessage.value = e.message
+    }
   }
   isLoading.value = false
 })
@@ -101,7 +105,9 @@ function prevPlace() {
               v-if="placeIndex === MAX_LOCATION_NUMBER || errorState"
               class="text-primary flex flex-col gap-4 text-2xl p-6 h-full w-full items-center justify-center text-center"
             >
-              <span v-if="errorState"> Something went wrong! Please try again later. </span>
+            <template v-if="errorState">
+              <span > Something went wrong! Please try again later.</span>
+              <span class="text-sm text-muted-foreground" v-if="errorMessage !== ''">Error: {{ errorMessage }} </span></template>
               <span v-else-if="MAX_LOCATION_NUMBER === 20"
                 >Max locations reached! Try refining your filters!</span
               >
@@ -110,7 +116,7 @@ function prevPlace() {
                 >Go back</router-link
               >
             </div>
-            <Card v-else :place="places[placeIndex]" :key="placeIndex" />
+            <Card v-else :place="places[placeIndex]" :current-lat="latNumber" :current-long="longNumber" :key="placeIndex" />
           </KeepAlive>
         </Transition>
       </div>

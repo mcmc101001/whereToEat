@@ -4,6 +4,8 @@ import type { Place } from '@/api/getNearbyPlaces'
 import { ref, onMounted } from 'vue'
 
 const props = defineProps<{
+  currentLat: number
+  currentLong: number
   place: Place
 }>()
 

@@ -48,18 +48,27 @@ export default async function getNearbyPlaces({ lat, long, filters, radius }: ge
     places: z.array(placeSchema)
   })
 
-  const response = await axios.post(`${endpoint}/nearbyPlaces`, {
-    latitude: lat,
-    longitude: long,
-    filters: filters,
-    radius: radius
-  })
-  if (response.status == 200 && JSON.stringify(response.data) === '{}') {
-    return []
-  }
+  const response = await axios
+    .post(`${endpoint}/nearbyPlaces`, {
+      latitude: lat,
+      longitude: long,
+      filters: filters,
+      radius: radius
+    })
+    .catch((error) => {
+      // https://cloud.google.com/docs/quota/troubleshoot
+      if (error.response.status === 429 || error.status === 413) {
+        throw new Error('Quota exceeded')
+      }
+      throw new Error('Invalid response status')
+    })
+
   if (!isValidBody(response.data, responseSchema)) {
     console.log(response.data)
     throw new Error('Invalid response body')
+  }
+  if (response.status == 200 && JSON.stringify(response.data) === '{}') {
+    return []
   }
   return response.data.places
 }

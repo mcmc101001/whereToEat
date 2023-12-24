@@ -6,6 +6,8 @@ from pydantic import BaseModel, field_validator
 
 from dotenv import load_dotenv
 
+from fastapi import HTTPException
+
 if (load_dotenv() == False):
     print(".env file not found")
 
@@ -76,7 +78,8 @@ class MapsClient:
 
         if (response.status_code != 200):
             print(response.json())
-            raise Exception("Error getting nearby places")
+            raise HTTPException(
+                status_code=response.status_code, detail=response.json())
         return response.json()
 
     def getPicture(self, img_ref: str):
