@@ -1,4 +1,12 @@
 \documentclass{article}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=cyan,
+    }
 
 \begin{document}
 \section{Introduction}
@@ -14,7 +22,30 @@ For the frontend, I used Vue.js as the main framework, with TailwindCSS for styl
 \section{Deployment}
 I used Docker to containerize the FastAPI backend, and deployed it on DigitalOcean. I spent lots of time trying to troubleshoot the deployment before realising a simple mistake: DigitalOcean required the port to be 8080.
 
+
 I also learnt to be more mindful with dev vs production environment. Initially, my deployment worked and then it stopped working all of the sudden. This was because I forgot to update the CORS origins in my FastAPI backend to include the production URL (and other shenanigans regarding a `/').
+
+\pagebreak
+
+\section{How to run}
+\subsection{Backend}
+Start by creating a virtual environment and installing the dependencies.
+
+\begin{lstlisting}[language=bash]
+  python -m venv venv
+  env\Scripts\Activate.ps1
+  pip install -r requirements.txt
+\end{lstlisting}
+
+Alternatively, you can use the latest version of the \href{https://hub.docker.com/repository/docker/mcmc101001/where-to-eat-backend/general}{Docker Image}. Either ways, remember to set the environment variables for the Google Maps API key.
+
+\subsection{Frontend}
+Instal the dependencies and run the dev server.
+
+\begin{lstlisting}[language=bash]
+  npm i
+  npm run dev
+\end{lstlisting}
 
 \end{document}
 

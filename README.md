@@ -1,1 +1,1 @@
-[documentation in LaTeX](/docs/doc.pdf)
+[Documentation in LaTeX](/docs/doc.pdf)
