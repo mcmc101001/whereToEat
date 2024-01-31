@@ -13,6 +13,7 @@ export const useRadiusStore = defineStore(
   'search-radius',
   () => {
     const radiusItems: Ref<RadiusItem[]> = ref([
+      { displayName: '< 400m', selected: false, apiValue: 400 },
       { displayName: '< 1km', selected: false, apiValue: 1000 },
       { displayName: '< 2km', selected: true, apiValue: 2000 },
       { displayName: '< 5km', selected: false, apiValue: 5000 }

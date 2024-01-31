@@ -7,7 +7,7 @@ const { radiusItems } = storeToRefs(useRadiusStore())
 </script>
 
 <template>
-  <div class="grid grid-cols-3 mt-2 gap-2 w-full">
+  <div class="grid grid-cols-4 mt-2 gap-2 w-full">
     <Radius
       v-for="radiusItem in radiusItems"
       :radiusItem="radiusItem"

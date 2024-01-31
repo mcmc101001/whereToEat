@@ -10,18 +10,20 @@ export type FilterItem = {
 export const useFilterStore = defineStore(
   'search-filters',
   () => {
-    const filterItems = ref([
-      { displayName: 'Bakery', selected: true, apiName: 'bakery' },
-      { displayName: 'Chinese', selected: true, apiName: 'chinese_restaurant' },
-      { displayName: 'French', selected: true, apiName: 'french_restaurant' },
-      { displayName: 'Indian', selected: true, apiName: 'indian_restaurant' },
-      { displayName: 'Italian', selected: true, apiName: 'italian_restaurant' },
-      { displayName: 'Japanese', selected: true, apiName: 'japanese_restaurant' },
-      { displayName: 'Korean', selected: true, apiName: 'korean_restaurant' },
-      { displayName: 'Mediterranean', selected: true, apiName: 'mediterranean_restaurant' },
-      { displayName: 'Spanish', selected: true, apiName: 'spanish_restaurant' },
-      { displayName: 'Vietnamese', selected: true, apiName: 'vietnamese_restaurant' }
-    ])
+    const filterItems = ref(
+      [
+        { displayName: 'Bakery', selected: true, apiName: 'bakery' },
+        { displayName: 'Chinese', selected: true, apiName: 'chinese_restaurant' },
+        { displayName: 'French', selected: true, apiName: 'french_restaurant' },
+        { displayName: 'Indian', selected: true, apiName: 'indian_restaurant' },
+        { displayName: 'Italian', selected: true, apiName: 'italian_restaurant' },
+        { displayName: 'Japanese', selected: true, apiName: 'japanese_restaurant' },
+        { displayName: 'Korean', selected: true, apiName: 'korean_restaurant' },
+        { displayName: 'Cafe', selected: true, apiName: 'cafe' },
+        { displayName: 'Ice Cream', selected: true, apiName: 'ice_cream_shop' },
+        { displayName: 'Vietnamese', selected: true, apiName: 'vietnamese_restaurant' }
+      ].sort((a, b) => a.displayName.localeCompare(b.displayName))
+    )
 
     const toggleFilter = (item: FilterItem) => {
       item.selected = !item.selected
@@ -44,6 +46,6 @@ export const useFilterStore = defineStore(
     return { filterItems, toggleFilter, resetFilters, allSelected, noneSelected }
   },
   {
-    persist: true
+    persist: false
   }
 )
