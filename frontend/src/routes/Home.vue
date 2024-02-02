@@ -3,6 +3,16 @@ import { ref } from 'vue'
 import router from '@/router'
 import FilterSection from '@/components/FilterSection.vue'
 import RadiusSection from '@/components/RadiusSection.vue'
+import { onBeforeMount } from 'vue'
+
+onBeforeMount(() => {
+  const appVer = localStorage.getItem('APP_VERSION')
+
+  if (appVer !== "v3") {
+    localStorage.clear()
+    localStorage.setItem('APP_VERSION', 'v3')
+  }
+})
 
 const errorState = ref(false)
 

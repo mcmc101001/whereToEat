@@ -37,9 +37,11 @@ const { filterItems } = storeToRefs(useFilterStore())
 const { allSelected } = useFilterStore()
 const { selectedRadius } = useRadiusStore()
 
-const filters = allSelected
-  ? ['restaurant']
-  : filterItems.value.filter((item) => item.selected).map((filterItem) => filterItem.apiName)
+const filters =  filterItems.value.filter((item) => item.selected).map((filterItem) => filterItem.apiName)
+
+if (allSelected) {
+  filters.push('restaurant')
+}
 
 let places: Place[] = []
 const placeIndex = ref(0)

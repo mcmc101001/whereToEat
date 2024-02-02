@@ -46,6 +46,6 @@ export const useFilterStore = defineStore(
     return { filterItems, toggleFilter, resetFilters, allSelected, noneSelected }
   },
   {
-    persist: false
+    persist: true
   }
 )
