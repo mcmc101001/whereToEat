@@ -11,6 +11,7 @@ onBeforeMount(() => {
   if (appVer !== "v3") {
     localStorage.clear()
     localStorage.setItem('APP_VERSION', 'v3')
+    window.location.reload()
   }
 })
 
