@@ -8,9 +8,9 @@ import { onBeforeMount } from 'vue'
 onBeforeMount(() => {
   const appVer = localStorage.getItem('APP_VERSION')
 
-  if (appVer !== "v3") {
+  if (appVer !== "v3.1") {
     localStorage.clear()
-    localStorage.setItem('APP_VERSION', 'v3')
+    localStorage.setItem('APP_VERSION', 'v3.1')
     window.location.reload()
   }
 })

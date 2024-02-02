@@ -15,13 +15,15 @@ export const useFilterStore = defineStore(
         { displayName: 'Bakery', selected: true, apiName: 'bakery' },
         { displayName: 'Chinese', selected: true, apiName: 'chinese_restaurant' },
         { displayName: 'French', selected: true, apiName: 'french_restaurant' },
-        { displayName: 'Indian', selected: true, apiName: 'indian_restaurant' },
+        { displayName: 'Coffee', selected: true, apiName: 'coffee_shop' },
         { displayName: 'Italian', selected: true, apiName: 'italian_restaurant' },
         { displayName: 'Japanese', selected: true, apiName: 'japanese_restaurant' },
         { displayName: 'Korean', selected: true, apiName: 'korean_restaurant' },
         { displayName: 'Cafe', selected: true, apiName: 'cafe' },
         { displayName: 'Ice Cream', selected: true, apiName: 'ice_cream_shop' },
-        { displayName: 'Vietnamese', selected: true, apiName: 'vietnamese_restaurant' }
+        { displayName: 'Vietnamese', selected: true, apiName: 'vietnamese_restaurant' },
+        { displayName: 'Mexican', selected: true, apiName: 'mexican_restaurant' },
+        { displayName: 'Thai', selected: true, apiName: 'thai_restaurant' }
       ].sort((a, b) => a.displayName.localeCompare(b.displayName))
     )
 
