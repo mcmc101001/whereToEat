@@ -33,13 +33,16 @@ if (Number.isNaN(latNumber) || Number.isNaN(longNumber)) {
   router.push({ name: 'Home' })
 }
 
-const { filterItems } = storeToRefs(useFilterStore())
-const { allSelected } = useFilterStore()
+const { categories, selectedCategory } = storeToRefs(useFilterStore())
+const { allFoodSelected, noneFoodSelected } = useFilterStore()
 const { selectedRadius } = useRadiusStore()
 
-const filters =  filterItems.value.filter((item) => item.selected).map((filterItem) => filterItem.apiName)
+const filters =  categories.value.filter((category) => category.displayName === selectedCategory.value)[0].filters.filter((item) => item.selected).map((filterItem) => filterItem.apiName)
 
-if (allSelected) {
+const foodCategorySelected = selectedCategory.value === 'Food'
+const attractionCategorySelected = selectedCategory.value === 'Attractions'
+
+if (foodCategorySelected && (allFoodSelected || noneFoodSelected) ) {
   filters.push('restaurant')
 }
 

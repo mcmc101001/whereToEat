@@ -8,9 +8,9 @@ import { onBeforeMount } from 'vue'
 onBeforeMount(() => {
   const appVer = localStorage.getItem('APP_VERSION')
 
-  if (appVer !== "v3.1") {
+  if (appVer !== "v3.2") {
     localStorage.clear()
-    localStorage.setItem('APP_VERSION', 'v3.1')
+    localStorage.setItem('APP_VERSION', 'v3.2')
     window.location.reload()
   }
 })
@@ -39,14 +39,14 @@ function getLocation() {
 </script>
 
 <template>
-  <div class="h-full w-full flex p-8 flex-col items-center justify-center gap-4">
+  <div class="h-full w-full flex p-8 flex-col items-center justify-center">
     <RadiusSection />
     <FilterSection />
     <button
       class="h-48 mt-8 w-48 font-semibold p-6 rounded-full text-4xl bg-primary text-primary-foreground"
       @click="getLocation"
     >
-      Find food!
+      Find!
     </button>
     <p class="text-center" v-if="errorState">
       Error getting location! Please enable location permissions and try again!

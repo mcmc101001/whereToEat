@@ -24,7 +24,7 @@ class NearbyPlacesRequest(BaseModel):
     latitude: float
     longitude: float
     radius: float | None = 2000  # meters
-    place_type: str | None = "places.id,places.displayName,places.location,places.rating,places.photos"
+    place_type: str | None = "places.id,places.displayName,places.location,places.rating,places.photos,places.types"
     max_result_count: int | None = MAX_RESULT_COUNT
     filters: list[str] | None = ['restaurant']
 
@@ -99,7 +99,7 @@ class MapsClient:
 maps_client = MapsClient(API_KEY)
 
 # test code
-# print(maps_client.getNearbyPlaces(NearbyPlacesRequest(
-#     latitude=37.7937, longitude=-122.3965)))
+# print(str(maps_client.getNearbyPlaces(NearbyPlacesRequest(
+#     latitude=48.8550643650682, longitude=2.3523107940325465, filters=[]))).encode('utf-8'))
 
 # print(maps_client.getPicture("ATJ83zhSSAtkh5LTozXMhBghqubeOxnZWUV2m7Hv2tQaIzKQJgvZk9yCaEjBW0r0Zx1oJ9RF1G7oeM34sQQMOv8s2zA0sgGBiyBgvdyMxeVByRgHUXmv-rkJ2wyvNv17jyTSySm_-_6R2B0v4eKX257HOxvXlx_TSwp2NrICKrZM2d5d2P4q"))
