@@ -9,3 +9,9 @@ run:
 		-p 8080:8080 \
 		--env-file .env \
 		${DOCKER_USERNAME}/${APP_NAME}:${APP_VERSION}
+
+format:
+	isort app && black .
+
+lint:
+	mypy app && flake8 app
