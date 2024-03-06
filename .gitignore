@@ -2,3 +2,9 @@ __pycache__
 env
 .env
 secrets
+
+# Play store deployment
+play_store_bundle/
+gradle/
+.gradle/
+app/
