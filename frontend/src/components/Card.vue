@@ -32,7 +32,7 @@ onMounted(async () => {
     pictureIsLoading.value = false
     return
   }
-  const img = await getImage(photoRef)
+  const img = await getImage(id, photoRef)
   url.value = URL.createObjectURL(img)
   pictureIsLoading.value = false
 })
