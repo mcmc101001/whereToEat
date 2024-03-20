@@ -1,8 +1,4 @@
-<script setup lang="ts">
-import { inject } from '@vercel/analytics'
-
-inject()
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <main
