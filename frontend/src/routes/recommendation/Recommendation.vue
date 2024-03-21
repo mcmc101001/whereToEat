@@ -100,7 +100,7 @@ function prevPlace() {
       ><font-awesome-icon class="absolute top-5 left-5 w-6 h-6 opacity-50" icon="fa-solid fa-xmark"
     /></router-link>
     <div class="h-full w-full py-10 px-10 flex items-center justify-center flex-col gap-4">
-      <div class="mt-4"><Adsense /></div>
+      <div class="mt-4 w-full h-20"><Adsense /></div>
       <div class="flex flex-col w-full items-center justify-center flex-1 relative">
         <Transition
           mode="out-in"
