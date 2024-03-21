@@ -8,7 +8,7 @@ import { onBeforeMount } from 'vue'
 onBeforeMount(() => {
   const appVer = localStorage.getItem('APP_VERSION')
 
-  if (appVer !== "v3.2") {
+  if (appVer !== 'v3.2') {
     localStorage.clear()
     localStorage.setItem('APP_VERSION', 'v3.2')
     window.location.reload()
@@ -48,7 +48,7 @@ function getLocation() {
     >
       Find!
     </button>
-    <p class="text-center" v-if="errorState">
+    <p class="text-center mt-4" v-if="errorState">
       Error getting location! Please enable location permissions and try again!
     </p>
   </div>
