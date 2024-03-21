@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "dev.pages.wheretoeat.twa",
+        "sha256_cert_fingerprints": ["A6:26:51:15:2D:F2:E5:6C:D7:C6:03:2B:6B:40:82:EA:5D:55:7E:7E:1D:A5:44:69:73:0C:1E:98:DB:FC:BD:D9"]
+      }
+    }]
