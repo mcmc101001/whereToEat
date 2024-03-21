@@ -14,7 +14,6 @@ onMounted(() => {
     style="display: block"
     data-ad-client="ca-pub-4769257199482076"
     data-ad-slot="1639459037"
-    data-ad-format="auto"
     data-full-width-responsive="true"
   ></ins>
 </template>
