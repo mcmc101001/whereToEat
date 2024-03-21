@@ -8,6 +8,7 @@ import { useFilterStore } from '@/store/filterStore'
 import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useRadiusStore } from '@/store/radiusStore'
+import Adsense from '@/components/Adsense.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -37,12 +38,15 @@ const { categories, selectedCategory } = storeToRefs(useFilterStore())
 const { allFoodSelected, noneFoodSelected } = useFilterStore()
 const { selectedRadius } = useRadiusStore()
 
-const filters =  categories.value.filter((category) => category.displayName === selectedCategory.value)[0].filters.filter((item) => item.selected).map((filterItem) => filterItem.apiName)
+const filters = categories.value
+  .filter((category) => category.displayName === selectedCategory.value)[0]
+  .filters.filter((item) => item.selected)
+  .map((filterItem) => filterItem.apiName)
 
 const foodCategorySelected = selectedCategory.value === 'Food'
 const attractionCategorySelected = selectedCategory.value === 'Attractions'
 
-if (foodCategorySelected && (allFoodSelected || noneFoodSelected) ) {
+if (foodCategorySelected && (allFoodSelected || noneFoodSelected)) {
   filters.push('restaurant')
 }
 
@@ -96,7 +100,8 @@ function prevPlace() {
       ><font-awesome-icon class="absolute top-5 left-5 w-6 h-6 opacity-50" icon="fa-solid fa-xmark"
     /></router-link>
     <div class="h-full w-full py-10 px-10 flex items-center justify-center flex-col gap-4">
-      <div class="flex items-center justify-center flex-1 relative">
+      <div class="mt-4"><Adsense /></div>
+      <div class="flex flex-col w-full items-center justify-center flex-1 relative">
         <Transition
           mode="out-in"
           enter-from-class="opacity-50"
