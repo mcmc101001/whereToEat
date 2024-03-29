@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import router from '@/router'
 import FilterSection from '@/components/FilterSection.vue'
 import RadiusSection from '@/components/RadiusSection.vue'
+import RatingFilter from '@/components/RatingFilter.vue'
 import { onBeforeMount } from 'vue'
 
 onBeforeMount(() => {
@@ -40,7 +41,11 @@ function getLocation() {
 
 <template>
   <div class="h-full w-full flex p-8 flex-col items-center justify-center">
-    <RadiusSection />
+    <div class="flex mb-4 w-full gap-2">
+      <RadiusSection />
+      <RatingFilter />
+    </div>
+    <div class="w-full h-px bg-foreground" />
     <FilterSection />
     <button
       class="h-48 mt-8 w-48 font-semibold p-6 rounded-full text-4xl bg-primary text-primary-foreground"

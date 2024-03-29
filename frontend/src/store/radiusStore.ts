@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia'
-import { computed } from 'vue'
 import { ref } from 'vue'
-import { type Ref } from 'vue'
 
 export type RadiusItem = {
   displayName: string
@@ -12,28 +10,19 @@ export type RadiusItem = {
 export const useRadiusStore = defineStore(
   'search-radius',
   () => {
-    const radiusItems: Ref<RadiusItem[]> = ref([
-      { displayName: '< 400m', selected: false, apiValue: 400 },
-      { displayName: '< 1km', selected: false, apiValue: 1000 },
-      { displayName: '< 2km', selected: true, apiValue: 2000 },
-      { displayName: '< 5km', selected: false, apiValue: 5000 }
-    ])
+    const selectedRadius = ref([1000])
 
-    const setRadius = (selectedItem: RadiusItem) => {
-      radiusItems.value.forEach((item) => {
-        if (item === selectedItem) {
-          item.selected = true
-        } else {
-          item.selected = false
-        }
-      })
+    const setSelectedRadius = (radius: number) => {
+      if (radius < 100) {
+        selectedRadius.value[0] = 100
+      }
+      if (radius > 10000) {
+        selectedRadius.value[0] = 10000
+      }
+      selectedRadius.value[0] = radius
     }
 
-    const selectedRadius = computed(() => {
-      return radiusItems.value.filter((item) => item.selected)[0].apiValue
-    })
-
-    return { radiusItems, setRadius, selectedRadius }
+    return { selectedRadius, setSelectedRadius }
   },
   {
     persist: true

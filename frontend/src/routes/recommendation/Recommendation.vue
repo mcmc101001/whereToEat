@@ -59,7 +59,7 @@ onMounted(async () => {
       lat: latNumber,
       long: longNumber,
       filters: filters,
-      radius: selectedRadius
+      radius: selectedRadius[0]
     }
     places = await getNearbyPlaces(body)
 
