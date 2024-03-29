@@ -8,6 +8,7 @@ import { useFilterStore } from '@/store/filterStore'
 import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useRadiusStore } from '@/store/radiusStore'
+import { useRatingFilterStore } from '@/store/ratingFilterStore'
 import Adsense from '@/components/Adsense.vue'
 
 const route = useRoute()
@@ -46,6 +47,8 @@ const filters = categories.value
 const foodCategorySelected = selectedCategory.value === 'Food'
 const attractionCategorySelected = selectedCategory.value === 'Attractions'
 
+const { minimumRating } = storeToRefs(useRatingFilterStore())
+
 if (foodCategorySelected && (allFoodSelected || noneFoodSelected)) {
   filters.push('restaurant')
 }
@@ -62,6 +65,10 @@ onMounted(async () => {
       radius: selectedRadius[0]
     }
     places = await getNearbyPlaces(body)
+
+    if (minimumRating.value[0] > 0) {
+      places = places.filter((place) => place.rating && place.rating >= minimumRating.value[0])
+    }
 
     errorState.value = false
 
