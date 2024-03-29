@@ -45,9 +45,11 @@ const { setSelectedRadius } = useRadiusStore()
       <DialogTitle>Distance Filter</DialogTitle>
       <DialogDescription> Select maximum distance </DialogDescription>
       <div class="flex flex-col items-center gap-4">
-        <span class="text-xl font-bold"
-          ><font-awesome-icon class="text-lg" icon="fa-solid fa-less-than-equal" />
-          {{ selectedRadius[0] }}
+        <span class="text-xl font-bold">
+          &lt
+          <template v-if="selectedRadius[0] < 1000"> {{ selectedRadius[0] }} m </template>
+          <template v-else> {{ selectedRadius[0] / 1000 }} km </template>
+          away
         </span>
         <Slider
           :default-value="[1000]"
