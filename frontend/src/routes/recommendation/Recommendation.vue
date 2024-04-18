@@ -9,7 +9,6 @@ import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useRadiusStore } from '@/store/radiusStore'
 import { useRatingFilterStore } from '@/store/ratingFilterStore'
-import Adsense from '@/components/Adsense.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -55,8 +54,16 @@ if (foodCategorySelected && (allFoodSelected || noneFoodSelected)) {
 
 let places: Place[] = []
 const placeIndex = ref(0)
+const isOnline = ref(true)
 
 onMounted(async () => {
+  if (!navigator.onLine) {
+    isOnline.value = false
+    errorState.value = true
+    isLoading.value = false
+    errorMessage.value = 'No internet connection, please refresh the page when you are online.'
+    return
+  }
   try {
     const body: getNearbyPlacesBody = {
       lat: latNumber,
