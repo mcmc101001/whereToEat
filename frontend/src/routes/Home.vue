@@ -6,12 +6,14 @@ import RadiusSection from '@/components/RadiusSection.vue'
 import RatingFilter from '@/components/RatingFilter.vue'
 import { onBeforeMount } from 'vue'
 
+const currentVersion = 'v3.3'
+
 onBeforeMount(() => {
   const appVer = localStorage.getItem('APP_VERSION')
 
-  if (appVer !== 'v3.2') {
+  if (appVer !== currentVersion) {
     localStorage.clear()
-    localStorage.setItem('APP_VERSION', 'v3.3')
+    localStorage.setItem('APP_VERSION', currentVersion)
     window.location.reload()
   }
 })
